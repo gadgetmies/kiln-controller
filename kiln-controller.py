@@ -258,6 +258,14 @@ def handle_status():
     log.info("websocket (status) closed")
 
 
+@app.get('/log')
+def handle_log():
+    log.info("/log command received")
+    if hasattr(oven,'pid'):
+        if hasattr(oven.pid,'pidstats'):
+            return json.dumps(ovenWatcher.lastlog())
+
+
 def get_profiles():
     try:
         profile_files = os.listdir(profile_path)
